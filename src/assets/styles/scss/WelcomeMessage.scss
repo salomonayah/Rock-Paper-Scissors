@@ -1,0 +1,59 @@
+#welcome-message {
+
+    .title {
+        text-align: center;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 36px;
+        line-height: 42px;
+        color: white;
+        margin: 5px 0;
+    }
+
+    .robot-welcome-message-wrapper {
+        display: flex;
+        flex-direction: row;
+        width: 75%;
+        margin: auto;
+        align-items: center; 
+
+
+        .robot-wrapper {
+            width: 200px;
+            text-align: center;
+            img {
+                width: 60%;
+                height: auto;
+                border: 6px solid #CECECE;
+                box-sizing: border-box;
+                border-radius: 50%;
+                background-color: #FFF;
+            }
+        }
+
+        .robot-message {
+            width: 65%;
+
+            .robot-presentation,
+            .game-instruction-intro {
+                font-weight: 300;
+                font-size: 16px;
+                line-height: 160%;
+                letter-spacing: 0.05em;
+                color: white;
+                text-align: justify;
+            }
+        }
+    }
+
+
+    .btn {
+        background-color: white;
+        color: #F17629;
+        border-radius: 50px;
+        padding: 10px 30px;
+        font-weight: bold;
+    }
+
+
+}
