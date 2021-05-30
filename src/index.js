@@ -1,12 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
+import './assets/styles/app.style.scss'
+import { BrowserRouter, Route , Switch, Redirect } from 'react-router-dom'
+import GameWelcomePage from './pages/GameWelcomePage';
+import GameMainPage from './pages/GameMainPage';
+const Root = () => (
+  <BrowserRouter>
+    <Switch>
+      <Route exact={true}  path="/" component={GameWelcomePage}></Route>
+      <Route exact={true}  path="/gamehomepage" component={GameMainPage}></Route>
+      <Route path="**" exact>
+        <Redirect to="/" />
+      </Route>
+    </Switch>
+  </BrowserRouter>
+)
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Root />
   </React.StrictMode>,
   document.getElementById('root')
 );
