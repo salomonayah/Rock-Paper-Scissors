@@ -1,7 +1,7 @@
 import React from "react";
 
-const PlayerOptionCard = ({ username, profileImage }) => (
-  <div id="playerCard">
+const PlayerOptionCard = ({ username, profileImage, clickNotAllowed }) => (
+  <div id="playerCard" style={{ pointerEvents: clickNotAllowed ? "none" : "pointer" }}>
     <div className="player-name">{username}</div>
     <div className="player-score">{0} point (s)</div>
 
@@ -16,6 +16,7 @@ const PlayerOptionCard = ({ username, profileImage }) => (
 
       <div className="hand-symbol-wrapper">
         <div className="answers-option">
+
           <div className="option activeAnswer">
             <span className="option-text">
               <i
@@ -25,6 +26,7 @@ const PlayerOptionCard = ({ username, profileImage }) => (
               ></i>
             </span>
           </div>
+          
           <div className="option">
             <span className="option-text">
               <i

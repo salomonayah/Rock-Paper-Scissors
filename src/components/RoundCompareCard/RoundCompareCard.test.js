@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import RoundCountDownCard from './RoundCountDownCard';
+import RoundCompareCard from './RoundCompareCard';
 
 it('It should mount', () => {
   const div = document.createElement('div');
-  ReactDOM.render(<RoundCountDownCard />, div);
+  ReactDOM.render(<RoundCompareCard />, div);
   ReactDOM.unmountComponentAtNode(div);
 });

@@ -1,14 +1,8 @@
 import React from "react";
 
 const RoundStartCard = ({ roundNumber, children }) => (
-  <div id="RoundStartCard">
-    <div className="round-number">Round {roundNumber}</div>
-
-    <div className="question-card">
-
-      <div>{children}</div>
-      
-    </div>
+  <div id="roundStartCard">
+    <div className="onboarding-text"> Please choose one hand signal in your list.</div>
   </div>
 );
 

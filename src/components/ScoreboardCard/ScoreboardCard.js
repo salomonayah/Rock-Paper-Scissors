@@ -22,13 +22,6 @@ const ScoreboardCard = () => (
           </div>
           <div className="player-winner">YOU</div>
         </div>
-        <div className="round-winner">
-          <div className="round-number">Round 1</div>
-          <div className="winner-text">
-            <img src={award} alt="battle icon" className="winner-trophy"/>
-          </div>
-          <div className="player-winner">YOU</div>
-        </div>
         <div className="round-winner activeRoundNumber">
           <div className="round-number">Round 1</div>
           <div className="winner-text"> Ongoing </div>

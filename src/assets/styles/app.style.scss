@@ -1,11 +1,15 @@
 @import "./scss/variables";
-@import "./scss/GameWelcomePage";
-@import "./scss/WelcomeMessage.scss";
-@import "./scss/RuleResume.scss";
 @import "./scss/GameMainPage.scss";
-@import "./scss/ScoreboardCard.scss";
+@import "./scss/GameWelcomePage.scss";
 @import "./scss/PlayerOptionCard.scss";
+@import "./scss/RoundCompareCard.scss";
+@import "./scss/RoundInfoCard.scss";
+@import "./scss/RoundResultCard.scss";
 @import "./scss/RoundStartCard.scss";
+@import "./scss/RuleResume.scss";
+@import "./scss/ScoreboardCard.scss";
+@import "./scss/SingleRoundScore.scss";
+@import "./scss/WelcomeMessage.scss";
 
 body {
   margin: 0;
