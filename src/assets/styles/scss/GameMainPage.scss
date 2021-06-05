@@ -1,0 +1,101 @@
+#gameMainPage {
+
+    background-image: url("../../../assets/img/challenge_container_bg.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    min-height: 100vh !important;
+    display: flex;
+    flex-flow: column;
+    width: 100%;
+
+
+    @media screen and (max-width:860px) {
+        padding: 25px;
+    }
+
+    .tournament-question-container {
+        margin-top: 30px;
+
+        .player-and-battle-card {
+            display: flex;
+            justify-content: space-between;
+            margin: auto;
+            width: 90%;
+
+            .round-info-wrapper {
+                width: 50%;
+            }
+        }
+
+        .question-bottom-button-wrapper {
+            margin-top: 25px;
+            text-align: center;
+
+            .question-btn {
+                width: 140px;
+                height: 36px;
+                border: 2px solid #FDC00F;
+                border-radius: 24px;
+                box-sizing: border-box;
+                position: relative;
+                font-size: 16px;
+                padding: 8px 32px;
+                text-align: center;
+                text-decoration: none;
+                overflow: hidden;
+                cursor: pointer;
+                margin: 4px 0;
+
+                @media screen and (max-width:360px) {
+                    width: auto;
+                }
+
+                transition-duration: 0.4s;
+                /* determine the speed of the "hover" effect: */
+                //   &:hover {
+                //     background:transparent;
+                //     color: #FDC00F;
+                //     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+                //   }
+            }
+
+            .next-button {
+                color: #01253A;
+                background-color: #FDC00F;
+            }
+
+            .skip-button {
+                color: #FDC00F;
+                background-color: transparent;
+                margin: 15px;
+            }
+
+            .button:after {
+                content: "";
+                background: #f1f1f1;
+                display: block;
+                position: absolute;
+                padding-top: 300%;
+                padding-left: 350%;
+                margin-left: -40px !important;
+                margin-top: -120%;
+                opacity: 0;
+                transition: all 0.8s
+            }
+
+            .button:active:after {
+                padding: 0;
+                margin: 0;
+                opacity: 1;
+                transition: 0s
+            }
+
+            .disabled {
+                opacity: 0.6;
+                pointer-events: none;
+                background-color: #C3BFBF;
+                border: 2px solid #C3BFBF;
+            }
+        }
+    }
+}

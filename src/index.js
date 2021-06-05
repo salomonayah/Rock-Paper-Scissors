@@ -9,7 +9,7 @@ const Root = () => (
   <BrowserRouter>
     <Switch>
       <Route exact={true}  path="/" component={GameWelcomePage}></Route>
-      <Route exact={true}  path="/gamehomepage" component={GameMainPage}></Route>
+      <Route exact={true}  path="/game" component={GameMainPage}></Route>
       <Route path="**" exact>
         <Redirect to="/" />
       </Route>

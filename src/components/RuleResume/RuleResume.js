@@ -9,7 +9,7 @@ const RuleResume = () => (
           <h4 className="activity-title">
             <i
               data-option="rock"
-              class="icon-option fa fa-hand-rock-o"
+              className="icon-option fa fa-hand-rock-o"
               aria-hidden="true"
             ></i>
             Rock
@@ -26,7 +26,7 @@ const RuleResume = () => (
           <h4 className="activity-title">
             <i
               data-option="paper"
-              class="icon-option fa fa-hand-paper-o"
+              className="icon-option fa fa-hand-paper-o"
               aria-hidden="true"
             ></i>
             Paper
@@ -42,7 +42,7 @@ const RuleResume = () => (
           <h4 className="activity-title" id="airtramp">
             <i
               data-option="scissors"
-              class="icon-option fa fa-hand-scissors-o"
+              className="icon-option fa fa-hand-scissors-o"
               aria-hidden="true"
             ></i>
             Scissors
@@ -58,7 +58,7 @@ const RuleResume = () => (
           <h4 className="activity-title" id="snoezelen">
             <i
               data-option="lizard"
-              class="icon-option fa fa-hand-lizard-o"
+              className="icon-option fa fa-hand-lizard-o"
               aria-hidden="true"
             ></i>
             Lizard
@@ -74,7 +74,7 @@ const RuleResume = () => (
           <h4 className="activity-title">
             <i
               data-option="spock"
-              class="icon-option fa fa-hand-spock-o"
+              className="icon-option fa fa-hand-spock-o"
               aria-hidden="true"
             ></i>
             Spock
@@ -96,3 +96,4 @@ RuleResume.propTypes = {};
 RuleResume.defaultProps = {};
 
 export default RuleResume;
+

@@ -1,10 +1,14 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import styles from './RoundStartCard.module.css';
+import React from "react";
 
-const RoundStartCard = () => (
-  <div className={styles.RoundStartCard}>
-    RoundStartCard Component
+const RoundStartCard = ({ roundNumber, children }) => (
+  <div id="RoundStartCard">
+    <div className="round-number">Round {roundNumber}</div>
+
+    <div className="question-card">
+
+      <div>{children}</div>
+      
+    </div>
   </div>
 );
 
