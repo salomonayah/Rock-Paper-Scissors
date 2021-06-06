@@ -5,7 +5,7 @@ import axios from "axios";
 import Spinner from "../Spinner/Spinner";
 import {appendIcon} from "../../utils";
 
-const PlayerOptionCard = ({ username, profileImage, choiceDone, handSymbolSelected={}, clickNotAllowed, handSymbolClickEvent }) => {
+const PlayerOptionCard = ({ username, profileImage, choiceDone, handSymbolSelected={}, clickNotAllowed, handSymbolClickEvent, userPoint }) => {
 
   const [availableChoices, setAvailableChoices] = useState([])
 
@@ -45,7 +45,7 @@ const PlayerOptionCard = ({ username, profileImage, choiceDone, handSymbolSelect
         style={{ pointerEvents: clickNotAllowed ? "none" : "pointer" }}
       >
         <div className="player-name">{username}</div>
-        <div className="player-score">{0} point (s)</div>
+        <div className="player-score">{userPoint} point (s)</div>
 
         <div className="playerOptionCard">
           <div className="assistant-profile-wrapper">

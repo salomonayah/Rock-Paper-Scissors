@@ -9,14 +9,23 @@ import userProfile from "../assets/img/user.svg";
 import { useState } from "react";
 import axios from "axios";
 import {appendIcon} from "../utils";
-import Spinner from "../components/Spinner/Spinner";
+// import Spinner from "../components/Spinner/Spinner";
 import {API_URL} from "../config";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+
 
 const exitGame = () => {
   window.location.href = "/"
 }
 
 const GameMainPage = () => {
+
+  const state = useSelector(state => state);
+  const dispatch = useDispatch();
+
+  console.log("state value")
+  console.log(state)
 
   const [handSymbolSelected, setHandSymbolSelected] = useState({})
   const [choiceStatus, setChoiceStatus] = useState(false)
@@ -54,13 +63,13 @@ const GameMainPage = () => {
 
     if(gameStatus === "starting") {
       return (
-        <RoundStartCard roundNumber={0} />
+        <RoundStartCard roundNumber={state.roundScoreBoard.length} />
       )
 
     } else if(gameStatus === "handSymbolSelected")  {
       return (
         <RoundCompareCard 
-          roundNumber={0}  
+          roundNumber={state.roundScoreBoard.length}  
           compareEvent={() => postUserChoice(handSymbolSelected.id) }
         />
       )
@@ -68,7 +77,7 @@ const GameMainPage = () => {
     } else if(gameStatus === "showTheRoundResult")  {
       return (
         <RoundResultCard 
-          roundNumber={0} 
+          roundNumber={state.roundScoreBoard.length} 
           userHandSymbolName={handSymbolSelected.name}  
           userHandSymbolIcon={handSymbolSelected.icon}
           robotHandSymbolName={robotChoice.name}  
@@ -110,25 +119,27 @@ const GameMainPage = () => {
         <div className="player-and-battle-card">
 
           <PlayerOptionCard 
-            gameRound={1} 
+            gameRound={state.roundScoreBoard.length} 
             username="YOU" 
             profileImage={userProfile}  
             handSymbolClickEvent={userSelectedHandSymbol}
             choiceDone={choiceStatus}
+            userPoint={state.playersScores.userScore}
             handSymbolSelected={handSymbolSelected}
           />
 
           <div className="round-info-wrapper">
-            <ScoreboardCard />
+            <ScoreboardCard /> 
             {displayTemplate(gameStatus)}
           </div>
 
           <PlayerOptionCard  
-            gameRound={1}  
+            gameRound={state.roundScoreBoard.length}  
             clickNotAllowed={true}
             username="TEDDY" 
             profileImage={teddyRobot}
             choiceDone={choiceStatus} 
+            userPoint={state.playersScores.robotScore}
           />
 
         </div>

@@ -22,10 +22,6 @@ const RoundResultCard = ({roundNumber, userHandSymbolName,  userHandSymbolIcon, 
             </button>
           </div>
 
-          {/* <div className="applied-rule">
-            <div className="rule"> Scissors decapitates lizard. </div>
-          </div> */}
-
           <div className="game-trophy">
             <img src={award} alt="battle icon" className="trophy" />
           </div>
