@@ -1,74 +1,97 @@
 import React from "react";
+import { useState, useEffect } from "react";
+import {API_URL} from "../../config";
+import axios from "axios";
+import Spinner from "../Spinner/Spinner";
+import {appendIcon} from "../../utils";
 
-const PlayerOptionCard = ({ username, profileImage, clickNotAllowed }) => (
-  <div id="playerCard" style={{ pointerEvents: clickNotAllowed ? "none" : "pointer" }}>
-    <div className="player-name">{username}</div>
-    <div className="player-score">{0} point (s)</div>
+const PlayerOptionCard = ({ username, profileImage, choiceDone, handSymbolSelected={}, clickNotAllowed, handSymbolClickEvent }) => {
 
-    <div className="playerOptionCard">
-      <div className="assistant-profile-wrapper">
-        <img
-          src={profileImage}
-          alt="player profile"
-          className="player-profile"
-        />
-      </div>
+  const [availableChoices, setAvailableChoices] = useState([])
 
-      <div className="hand-symbol-wrapper">
-        <div className="answers-option">
+  useEffect(() => { 
+    async function fetchChoices() {
+      try {
+        const response = await axios.get(
+          API_URL + "/choices"
+        );
+        const choicesWithIcon = getHandSymbolWithIcon(response.data)
+        setAvailableChoices(choicesWithIcon);
+      } catch (error) {
+        console.log({ error });
+      }
+    }
+    fetchChoices()
+  }, [])
+  
+  const getHandSymbolWithIcon = (apiHandSymbolList) => {
 
-          <div className="option activeAnswer">
-            <span className="option-text">
-              <i
-                data-option="rock"
-                className="icon-option fa fa-hand-rock-o"
-                aria-hidden="true"
-              ></i>
-            </span>
+    apiHandSymbolList.forEach( (handSymbol) => {
+      appendIcon(handSymbol)
+    })
+      
+    return apiHandSymbolList
+  }
+
+  const userSelectedHandSymbol = (handSymbol) => {
+    handSymbolClickEvent(handSymbol)
+  }
+
+  const displayContent = () => {
+
+    return ( 
+      <div
+        id="playerCard"
+        style={{ pointerEvents: clickNotAllowed ? "none" : "pointer" }}
+      >
+        <div className="player-name">{username}</div>
+        <div className="player-score">{0} point (s)</div>
+
+        <div className="playerOptionCard">
+          <div className="assistant-profile-wrapper">
+            <img
+              src={profileImage}
+              alt="player profile"
+              className="player-profile"
+            />
           </div>
-          
-          <div className="option">
-            <span className="option-text">
-              <i
-                data-option="paper"
-                className="icon-option fa fa-hand-paper-o"
-                aria-hidden="true"
-              ></i>
-            </span>
+
+          <div className="hand-symbol-wrapper">
+
+          { (!choiceDone && availableChoices?.length)  && (
+              <div className="answers-option">
+                  {availableChoices?.map((handSymbol, index) => (
+                      <div 
+                        className={ `option ${ handSymbolSelected.id === handSymbol.id ? 'activeAnswer' : '' }` } 
+                        onClick={ () => userSelectedHandSymbol(handSymbol)}
+                        key={index}
+                        >
+                        <i className={ 'icon-option ' + handSymbol.icon } />
+                        <span className="option-text"> {handSymbol.name} </span>
+                      </div>
+                    ))
+                  }
+              </div>
+          )}
+
+          {choiceDone && (
+              <div className="answers-option">
+                <span className="option-text"> Hand symbol selected ! </span>
+              </div>
+            )
+          }
+
+
+                
           </div>
-          <div className="option">
-            <span className="option-text">
-              <i
-                data-option="scissors"
-                className="icon-option fa fa-hand-scissors-o"
-                aria-hidden="true"
-              ></i>
-            </span>
-          </div>
-          <div className="option">
-            <span className="option-text">
-              <i
-                data-option="lizard"
-                className="icon-option fa fa-hand-lizard-o"
-                aria-hidden="true"
-              ></i>
-            </span>
-          </div>
-          <div className="option">
-            <span className="option-text">
-              <i
-                data-option="spock"
-                className="icon-option fa fa-hand-spock-o"
-                aria-hidden="true"
-              ></i>
-            </span>
-          </div>
+      
         </div>
       </div>
-    </div>
+    );
+  }
 
-  </div>
-);
+  return <>{ availableChoices?.length ?  displayContent() : <Spinner /> }</>;
+};
 
 PlayerOptionCard.propTypes = {};
 

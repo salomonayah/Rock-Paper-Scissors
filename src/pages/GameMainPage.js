@@ -1,43 +1,16 @@
 import React from "react";
 import ScoreboardCard from "../components/ScoreboardCard/ScoreboardCard";
 import PlayerOptionCard from "../components/PlayerOptionCard/PlayerOptionCard";
-// import RoundStartCard from "../components/RoundStartCard/RoundStartCard";
-import RoundInfoCard from "../components/RoundInfoCard/RoundInfoCard";
+import RoundStartCard from "../components/RoundStartCard/RoundStartCard";
+import RoundCompareCard from "../components/RoundCompareCard/RoundCompareCard";
+import RoundResultCard from "../components/RoundResultCard/RoundResultCard";
 import teddyRobot from "../assets/img/teddyRobot.jpeg";
 import userProfile from "../assets/img/user.svg";
-import battle from "../assets/img/battle.svg";
-import award from "../assets/img/award.svg";
-
-const RoundResult =  (
-  <div>
-    <div className="result-wrapper"> 
-      <div className="player-selected-card">
-        <button  class="tr-ba-card">
-            <img src={battle} alt="battle icon"/> <h5 class="tr-ba-text mb-0">Paper</h5>
-        </button>
-        <div> Vs </div>
-        <button  class="tr-ba-card">
-            <img src={battle} alt="battle icon"/> <h5 class="tr-ba-text mb-0">Rock</h5>
-        </button>
-      </div>
-    
-      <div className="applied-rule">
-        <div className="rule"> Scissors decapitates lizard. </div>
-      </div>
-
-      <div className="game-trophy">
-        <img src={award} alt="battle icon" className="trophy"/>
-      </div>
-
-      <div className="winner-text">  TEDDY has winned this round ! </div>
-
-      <div className="next-btn-wrapper">
-        <button className="btn">Next round</button>
-      </div>
-
-    </div>
-  </div>
-)
+import { useState } from "react";
+import axios from "axios";
+import {appendIcon} from "../utils";
+import Spinner from "../components/Spinner/Spinner";
+import {API_URL} from "../config";
 
 const exitGame = () => {
   window.location.href = "/"
@@ -45,16 +18,119 @@ const exitGame = () => {
 
 const GameMainPage = () => {
 
+  const [handSymbolSelected, setHandSymbolSelected] = useState({})
+  const [choiceStatus, setChoiceStatus] = useState(false)
+  const [gameStatus, setGameStatus] = useState('starting')
+  const [roundResult, setRoundResult] = useState({})
+  const [robotChoice, setRobotChoice] = useState({})
+
+
+  const userSelectedHandSymbol = (handSymbol) => {
+    setHandSymbolSelected(handSymbol)
+    getRobotChoiceApi()
+  } 
+  const getRobotChoiceApi = async () => {
+    try {
+    
+      const response = await axios.get(
+        API_URL + "/choice"
+      );
+      
+      const robotChoice = response.data;
+
+      if(robotChoice) {
+        appendIcon(robotChoice)
+        setRobotChoice(robotChoice)
+        setChoiceStatus(true)
+        setGameStatus('handSymbolSelected')
+      }
+  
+    } catch (error) {
+      console.log({ error });
+    }
+  };
+
+  const displayTemplate = (gameStatus) => {
+
+    if(gameStatus === "starting") {
+      return (
+        <RoundStartCard roundNumber={0} />
+      )
+
+    } else if(gameStatus === "handSymbolSelected")  {
+      return (
+        <RoundCompareCard 
+          roundNumber={0}  
+          compareEvent={() => postUserChoice(handSymbolSelected.id) }
+        />
+      )
+
+    } else if(gameStatus === "showTheRoundResult")  {
+      return (
+        <RoundResultCard 
+          roundNumber={0} 
+          userHandSymbolName={handSymbolSelected.name}  
+          userHandSymbolIcon={handSymbolSelected.icon}
+          robotHandSymbolName={robotChoice.name}  
+          robotHandSymbolIcon={robotChoice.icon}
+          roundResult={ roundResult.results }
+          nextRoundEvent={ () => startTheNextRound(handSymbolSelected.id)  } 
+        />
+      )
+
+    }
+
+  }
+
+  const postUserChoice = async (data) => {
+    const dataToSubmit = {
+      player: data 
+    }
+    
+    try {
+      const response = await axios.post(API_URL + "/play", dataToSubmit);
+      console.log(response.data)
+
+      setGameStatus('showTheRoundResult')
+      setRoundResult(response.data);
+    } catch (error) {
+      console.log({ error });
+    }
+  }
+
+  const startTheNextRound = () => {
+    setGameStatus('starting')
+    setChoiceStatus(false)
+    setHandSymbolSelected({})
+  }
+
   return (
     <div id="gameMainPage">
       <div className="tournament-question-container">
         <div className="player-and-battle-card">
-          <PlayerOptionCard username="YOU" profileImage={userProfile} />
+
+          <PlayerOptionCard 
+            gameRound={1} 
+            username="YOU" 
+            profileImage={userProfile}  
+            handSymbolClickEvent={userSelectedHandSymbol}
+            choiceDone={choiceStatus}
+            handSymbolSelected={handSymbolSelected}
+          />
+
           <div className="round-info-wrapper">
             <ScoreboardCard />
-            <RoundInfoCard roundNumber={1} children={RoundResult} />
+            {displayTemplate(gameStatus)}
           </div>
-          <PlayerOptionCard clickNotAllowed={true} username="TEDDY" profileImage={teddyRobot} />
+
+          <PlayerOptionCard  
+            gameRound={1}  
+            clickNotAllowed={true}
+            username="TEDDY" 
+            profileImage={teddyRobot}
+            choiceDone={choiceStatus} 
+          />
+
         </div>
       </div>
 

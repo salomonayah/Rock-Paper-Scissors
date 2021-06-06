@@ -93,8 +93,12 @@
             color: #01253A;
           }
 
+          .icon-option {
+            font-size: 25px;
+          }
+
           .option-text {
-            font-size: x-large;
+            font-size: 20px;
           }
         }
 
@@ -102,6 +106,19 @@
           background: #FDC00F;
           color: #01253A;
         }
+
+
+        .option-text {
+          font-size: 20px;
+          width: 90%;
+          margin: auto;
+          color: #fff;
+          font-weight: bold;
+          text-align: center;
+          cursor: pointer;
+          margin-top: 80px;
+        }
+
       }
 
     }

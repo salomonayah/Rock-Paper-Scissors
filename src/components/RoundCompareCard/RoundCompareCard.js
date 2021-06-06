@@ -1,18 +1,28 @@
 import React from "react";
-import PropTypes from "prop-types";
-import styles from "./RoundCompareCard.module.css";
+import battle from "../../assets/img/battle.svg";
 
-const RoundCompareCard = () => (
-  <div id="roundCompareCard">
-    <div className="onboarding-text"> 
-      Click on the button below to compare your result with your opponent
+const RoundCompareCard = ({roundNumber, compareEvent}) => (
+  <div id="roundInfoCard">
+    <div className="round-number">Round {roundNumber}</div>
+
+    <div className="info-card">
+      <div>
+        <div id="roundCompareCard">
+          <div className="onboarding-text"> 
+            Click on the button below to compare your result with your opponent
+          </div>
+          <button className="tr-ba-card-btn" onClick={() => {compareEvent()}}>
+            <img src={battle} alt="battle icon" />
+            <h5 className="tr-ba-text mb-0">compare</h5>
+          </button>
+          <div className="cancel-selection"> Cancel </div>
+        </div>
+      </div>
     </div>
-    <button class="tr-ba-card">
-      <img src={battle} alt="battle icon" />
-      <h5 class="tr-ba-text mb-0">compare</h5>
-    </button>
-    <div className="cancel-selection"> Cancel </div>
   </div>
+
+
+
 );
 
 RoundCompareCard.propTypes = {};

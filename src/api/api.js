@@ -1,10 +1,10 @@
-import API_URL from "../config";
+import {API_URL} from "../config";
 import axios from "axios";
 
 export const postUserChoiceApi = async (data) => {
     try {
       const response = await axios.post(API_URL + "/play", data);
-      return response.data;
+      return response;
   
       //
     } catch (error) {
@@ -12,10 +12,10 @@ export const postUserChoiceApi = async (data) => {
     }
   };
   
-  export const getAllChoicesApi = async () => {
+  export const getAllChoicesApi = () => {
     try {
 
-      const response = await axios.get(
+      const response = axios.get(
         API_URL + "/choices"
       );
       return response.data;

@@ -1,3 +1,75 @@
 #roundCompareCard {
     
+
+    .onboarding-text {
+        color: #fff;
+        font-weight: bold;
+        text-align: center;
+        margin-top: 10%;
+    }
+
+
+    .tr-ba-card-btn {
+        width: 180px;
+        margin: auto;
+        margin-top: 25px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        height: -moz-fit-content;
+        height: fit-content;
+        background: #FFF;
+        border-radius: 8px;
+        padding: 0 20px;
+        cursor: pointer;
+
+        @media screen and (max-width: 340px) {
+            padding: 0.75rem;
+        }
+
+        :hover {
+            opacity: 0.8;
+            text-decoration: none !important;
+        }
+
+        img {
+            width: 3rem;
+            height: 3rem;
+
+            @media screen and (max-width: 340px) {
+                width: 2rem;
+                height: 2rem;
+            }
+        }
+
+        .tr-ba-text {
+            text-align: left;
+            letter-spacing: 0px;
+            color: #000;
+            margin-left: 1rem;
+            text-transform: capitalize;
+            font-size: larger;
+
+            @media screen and (max-width: 340px) {
+                font-size: 0.75rem;
+                margin-left: 0.75rem;
+            }
+        }
+    }
+
+    .cancel-selection {
+        width: fit-content;
+        margin: auto;
+        color: #fff;
+        font-weight: bold;
+        text-align: center;
+        cursor: pointer;
+        margin-top: 80px;
+
+        &:hover {
+            opacity: 0.8;
+            text-decoration: underline;
+        }
+    }
 }
