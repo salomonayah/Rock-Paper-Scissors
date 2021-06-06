@@ -33,6 +33,8 @@ const GameMainPage = () => {
   
 
   const userSelectedHandSymbol = (handSymbol) => {
+    console.log("userSelectedHandSymbol")
+    console.log(handSymbol)
     setHandSymbolSelected(handSymbol)
     getRobotChoiceApi()
   } 
@@ -44,6 +46,9 @@ const GameMainPage = () => {
       );
       
       const robotChoice = response.data;
+
+      console.log("robotChoice")
+      console.log(robotChoice)
 
       if(robotChoice) {
         appendIcon(robotChoice)
@@ -93,7 +98,10 @@ const GameMainPage = () => {
     const dataToSubmit = {
       player: data 
     }
-    
+
+    console.log("dataToSubmit")
+    console.log(dataToSubmit)
+
     try {
       const response = await axios.post(API_URL + "/play", dataToSubmit);
       console.log(response.data)

@@ -25,7 +25,8 @@ const PlayerOptionCard = ({ username, profileImage, choiceDone, handSymbolSelect
   }, [])
   
   const getHandSymbolWithIcon = (apiHandSymbolList) => {
-
+    console.log("apiHandSymbolList")
+    console.log(apiHandSymbolList)
     apiHandSymbolList.forEach( (handSymbol) => {
       appendIcon(handSymbol)
     })
