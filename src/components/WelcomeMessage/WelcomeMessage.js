@@ -17,7 +17,7 @@ const WelcomeMessage = () => (
         <p className="game-instruction-intro">
           In this game each player will choose a hand symbol at the same time.
           Regarding the game rules the strongest hand symbol will win the game
-          round. <b>Here is some hands symbols and game rules:</b> 
+          round. <b className="hide-on-mobile">Here is some hands symbols and game rules:</b> 
         </p>
       </div>
     </div>

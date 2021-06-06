@@ -6,33 +6,31 @@ import RoundCompareCard from "../components/RoundCompareCard/RoundCompareCard";
 import RoundResultCard from "../components/RoundResultCard/RoundResultCard";
 import teddyRobot from "../assets/img/teddyRobot.jpeg";
 import userProfile from "../assets/img/user.svg";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
-import {appendIcon} from "../utils";
-// import Spinner from "../components/Spinner/Spinner";
+import {appendIcon, initialGameState, loadState, saveState} from "../utils";
 import {API_URL} from "../config";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
 
 
 const exitGame = () => {
+  localStorage.clear()
   window.location.href = "/"
 }
 
 const GameMainPage = () => {
-
-  const state = useSelector(state => state);
-  const dispatch = useDispatch();
-
-  console.log("state value")
-  console.log(state)
 
   const [handSymbolSelected, setHandSymbolSelected] = useState({})
   const [choiceStatus, setChoiceStatus] = useState(false)
   const [gameStatus, setGameStatus] = useState('starting')
   const [roundResult, setRoundResult] = useState({})
   const [robotChoice, setRobotChoice] = useState({})
+  const [gameLocalState, setGameLocalState] = useState(initialGameState)
 
+  useEffect(() => { 
+    const activeGameState = loadState()
+    setGameLocalState(activeGameState)
+  }, [])
+  
 
   const userSelectedHandSymbol = (handSymbol) => {
     setHandSymbolSelected(handSymbol)
@@ -63,13 +61,13 @@ const GameMainPage = () => {
 
     if(gameStatus === "starting") {
       return (
-        <RoundStartCard roundNumber={state.roundScoreBoard.length} />
+        <RoundStartCard roundNumber={gameLocalState.roundScoreBoard.length} />
       )
 
     } else if(gameStatus === "handSymbolSelected")  {
       return (
         <RoundCompareCard 
-          roundNumber={state.roundScoreBoard.length}  
+          roundNumber={gameLocalState.roundScoreBoard.length}  
           compareEvent={() => postUserChoice(handSymbolSelected.id) }
         />
       )
@@ -77,7 +75,7 @@ const GameMainPage = () => {
     } else if(gameStatus === "showTheRoundResult")  {
       return (
         <RoundResultCard 
-          roundNumber={state.roundScoreBoard.length} 
+          roundNumber={gameLocalState.roundScoreBoard.length} 
           userHandSymbolName={handSymbolSelected.name}  
           userHandSymbolIcon={handSymbolSelected.icon}
           robotHandSymbolName={robotChoice.name}  
@@ -102,6 +100,7 @@ const GameMainPage = () => {
 
       setGameStatus('showTheRoundResult')
       setRoundResult(response.data);
+      scoreStateAction(response.data)
     } catch (error) {
       console.log({ error });
     }
@@ -111,40 +110,85 @@ const GameMainPage = () => {
     setGameStatus('starting')
     setChoiceStatus(false)
     setHandSymbolSelected({})
+    let activeGameState = loadState()
+    activeGameState.roundScoreBoard.push({ winner : "", completed: false })
+    setGameLocalState(activeGameState)
+  }
+
+  const scoreStateAction = (newRoundScore) => {
+
+    let initGameLocalState = gameLocalState
+    let roundScoreBoard = initGameLocalState.roundScoreBoard
+
+    if(newRoundScore.results === 'win') {
+
+      initGameLocalState.playersScores.userScore++
+      initGameLocalState.playersScores.robotScore--
+
+      roundScoreBoard.splice(-1,1)
+      roundScoreBoard.push({ winner : "YOU", completed: true })
+
+      initGameLocalState.roundScoreBoard = roundScoreBoard
+
+      saveState(initGameLocalState)
+
+    } else if(newRoundScore.results === 'lose') {
+
+
+      initGameLocalState.playersScores.userScore--
+      initGameLocalState.playersScores.robotScore++
+
+      roundScoreBoard.splice(-1,1)
+      roundScoreBoard.push({ winner : "TEDDY", completed: true })
+
+      initGameLocalState.roundScoreBoard = roundScoreBoard
+
+      saveState(initGameLocalState)
+
+    } else if(newRoundScore.results === 'tie') {
+
+      roundScoreBoard.splice(-1,1)
+      roundScoreBoard.push({ winner : "TIE", completed: true })
+
+      initGameLocalState.roundScoreBoard = roundScoreBoard
+
+      saveState(initGameLocalState)
+    }
   }
 
   return (
     <div id="gameMainPage">
+    {gameLocalState?.roundScoreBoard?.length && (
       <div className="tournament-question-container">
-        <div className="player-and-battle-card">
+        <div className="player-and-battle-card" >
 
-          <PlayerOptionCard 
-            gameRound={state.roundScoreBoard.length} 
-            username="YOU" 
-            profileImage={userProfile}  
-            handSymbolClickEvent={userSelectedHandSymbol}
-            choiceDone={choiceStatus}
-            userPoint={state.playersScores.userScore}
-            handSymbolSelected={handSymbolSelected}
-          />
-
-          <div className="round-info-wrapper">
-            <ScoreboardCard /> 
+            <PlayerOptionCard 
+              gameRound={gameLocalState.roundScoreBoard.length} 
+              username="YOU" 
+              profileImage={userProfile}  
+              handSymbolClickEvent={userSelectedHandSymbol}
+              choiceDone={choiceStatus}
+              userPoint={gameLocalState.playersScores.userScore}
+              handSymbolSelected={handSymbolSelected}
+            />
+      
+          <div  className={ `round-info-wrapper ${ !choiceStatus ? 'hide-element' : 'show-element' }` } >
+            <ScoreboardCard scoreList={gameLocalState.roundScoreBoard} />
             {displayTemplate(gameStatus)}
           </div>
 
           <PlayerOptionCard  
-            gameRound={state.roundScoreBoard.length}  
+            gameRound={gameLocalState.roundScoreBoard.length}  
             clickNotAllowed={true}
             username="TEDDY" 
             profileImage={teddyRobot}
             choiceDone={choiceStatus} 
-            userPoint={state.playersScores.robotScore}
+            userPoint={gameLocalState.playersScores.robotScore}
           />
 
         </div>
       </div>
-
+    )}
       <div className="exit-text" onClick={exitGame} > Exit </div>
     </div>
   )

@@ -27,9 +27,9 @@
                 border-radius: 8px;
                 padding: 0 20px;
                 pointer-events:none;
-
-                @media screen and (max-width: 340px) {
-                    padding: 0.75rem;
+                @media (max-width: 745px) {
+                    width: 100px;
+                    padding: 0 10px;
                 }
 
                 :hover {
@@ -40,11 +40,6 @@
                 img {
                     width: 3rem;
                     height: 3rem;
-
-                    @media screen and (max-width: 340px) {
-                        width: 2rem;
-                        height: 2rem;
-                    }
                 }
 
                 .tr-ba-text {
@@ -54,16 +49,19 @@
                     margin-left: 1rem;
                     text-transform: capitalize;
                     font-size: larger;
-
-                    @media screen and (max-width: 340px) {
-                        font-size: 0.75rem;
-                        margin-left: 0.75rem;
+                    @media (max-width: 745px) {
+                        font-size: 15px;
+                        margin-left: 5px;
                     }
                 }
             }
 
             .icon-option {
                 font-size: 35px;
+                @media (max-width: 745px) {
+                    font-size: 15px;
+
+                }
             }
         }
 
@@ -94,6 +92,9 @@
             font-weight: bold;
             text-align: center;
             font-size: 25px;
+            @media (max-width: 745px) {
+                font-size: 13px;
+            }
         }
 
         .next-btn-wrapper {

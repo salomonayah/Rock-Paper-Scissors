@@ -16,7 +16,11 @@
         width: 75%;
         margin: auto;
         align-items: center; 
-
+        @media (max-width: 880px) {
+            flex-direction: column;
+            width: 100%;
+            margin-top: 25px;
+        }
 
         .robot-wrapper {
             width: 200px;
@@ -42,6 +46,12 @@
                 letter-spacing: 0.05em;
                 color: white;
                 text-align: justify;
+
+                .hide-on-mobile{
+                    @media (max-width: 880px) {
+                      display: none;
+                    }
+                }
             }
         }
     }

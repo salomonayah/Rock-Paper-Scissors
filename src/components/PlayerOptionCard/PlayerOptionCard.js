@@ -42,6 +42,7 @@ const PlayerOptionCard = ({ username, profileImage, choiceDone, handSymbolSelect
     return ( 
       <div
         id="playerCard"
+        className={ `${ choiceDone ? 'hide-element-card-player' : '' }` }
         style={{ pointerEvents: clickNotAllowed ? "none" : "pointer" }}
       >
         <div className="player-name">{username}</div>

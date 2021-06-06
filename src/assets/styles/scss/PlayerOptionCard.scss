@@ -1,5 +1,11 @@
 #playerCard {
   width: 15%;
+  @media (max-width: 745px) {
+    width: 25%;
+  }
+  @media (max-width: 600px){
+    width: 40%;
+  }
 
   .player-name {
     color: #fff;
@@ -23,11 +29,6 @@
     border: 2px solid rgba(#0B4F8B, 1);
     border-radius: 5px;
     position: relative;
-
-    @media screen and (max-width: 680px) {
-      width: 90%;
-      margin: auto;
-    }
 
     .assistant-profile-wrapper {
       width: 78px;
@@ -57,14 +58,6 @@
         display: flex;
         flex-direction: column;
 
-        @media screen and (max-width:860px) {
-          width: 100%;
-        }
-
-        @media screen and (max-width:360px) {
-          padding: 58px 5px;
-        }
-
         .option {
           width: 100%;
           height: fit-content;
@@ -80,14 +73,6 @@
           max-width: 800px;
           color: #FFFFFF;
 
-          @media screen and (max-width:860px) {
-            margin: 0 auto;
-          }
-
-          @media screen and (max-width:375px) {
-            width: 100%;
-          }
-
           &:hover {
             background: #FDC00F;
             color: #01253A;
@@ -99,6 +84,12 @@
 
           .option-text {
             font-size: 20px;
+            @media (max-width: 1242px) {
+              display: block;
+            }
+            @media (max-width: 1024px) {
+              font-size: 12px;
+            }
           }
         }
 
@@ -117,10 +108,23 @@
           text-align: center;
           cursor: pointer;
           margin-top: 80px;
+          @media (max-width: 1242px) {
+            margin-top: 0px;
+          }
+          @media (max-width: 1024px) {
+            font-size: 12px;
+          }
+
         }
 
       }
 
     }
+  }
+}
+
+.hide-element-card-player {
+  @media (max-width: 600px) {
+    display: none !important;
   }
 }

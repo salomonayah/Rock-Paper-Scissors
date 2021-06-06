@@ -1,4 +1,7 @@
 #rule-resume-card {
+  @media (max-width: 880px) {
+    display: none;
+  }
 
   .bloc {
     display: flex;
@@ -13,7 +16,7 @@
     width: 20%;
     margin-right: 12px;
     background-color: white;
-    height: 250px;
+    min-height: 225%;
     box-shadow: 0 6px 17px #7777778f;
     border-radius: 10px;
 
@@ -48,11 +51,6 @@
       line-height: 160%;
       letter-spacing: 0.05em;
       font-feature-settings: "tnum"on, "lnum"on, "kern"off;
-
-      @media (max-width: 780px) {
-        font-size: 14px;
-        padding: 13px;
-      }
 
       .block-text {
         display: block;
@@ -94,52 +92,6 @@
         margin-top: 4px;
       }
     }
-  }
-
-  @media (max-width: 420px) {
-
-    .bloc {
-      display: block;
-
-    }
-
-    .activity-card {
-      width: 100%;
-      height: 245px;
-    }
-
-    .link {
-
-      i {
-
-        padding-left: 210px !important;
-      }
-    }
-
-    .premier {
-      margin-top: -15px !important;
-    }
-
-    .second {
-      margin-top: -20px !important;
-    }
-
-  }
-
-  @media (min-width:540px)and (max-width:720px) {
-    .bloc {
-      display: block;
-    }
-
-    .activity-card {
-      width: 45%;
-      height: 300px;
-    }
-
-    .premier {
-      margin-top: -30px !important;
-    }
-
   }
 
 }

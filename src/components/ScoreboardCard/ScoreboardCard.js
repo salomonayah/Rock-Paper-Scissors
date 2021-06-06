@@ -1,22 +1,44 @@
 import React from "react";
 import award from "../../assets/img/award.svg";
-import { useSelector } from "react-redux";
+import { useEffect } from "react";
+
+const ScoreboardCard = ( scoreList ) => { 
+
+  const lastScore = scoreList.scoreList
 
 
-const ScoreboardCard = () => {
 
-  const state = useSelector(state => state);
+  useEffect(() => { 
+
+    const scoreboardScroll = setInterval(() => {
+
+      const div = '#ScoreboardCard';
+      const container = document.querySelector(div);
+      if (container) {
+        container.scrollLeft = 0;
+        container.scrollLeft += 100 * lastScore.length;
+        clearInterval(scoreboardScroll);
+      }
+  
+    }, 500);
+
+  }, [])
+  
 
   return ( 
     <div id="ScoreboardCard">
       <div className="question-top-element-wrapper">
+
+      {lastScore?.length && (
+        
+      
         <div
           className="question-number-container horizontal-scroll-wrapper"
           id="scrollManager"
         >
 
         {
-          state.roundScoreBoard.map((roundScore, index) => (
+          lastScore.map((roundScore, index) => (
             <div 
               key={ index }
               className={ `round-winner ${ !roundScore.completed ? 'activeRoundNumber' : '' }` }
@@ -41,6 +63,9 @@ const ScoreboardCard = () => {
         }
           
         </div>
+      
+      
+      )}
       </div>
     </div>
     

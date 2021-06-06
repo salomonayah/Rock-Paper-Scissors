@@ -40,7 +40,7 @@ const RoundResultCard = ({roundNumber, userHandSymbolName,  userHandSymbolIcon, 
           )}
 
           <div className="next-btn-wrapper">
-            <button onClick={ nextRoundEvent } className="btn">Next round</button>
+            <button onClick={ nextRoundEvent } className="btn"> Ok </button>
           </div>
         </div>
       </div>
